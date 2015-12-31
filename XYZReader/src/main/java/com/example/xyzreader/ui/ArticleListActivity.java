@@ -1,6 +1,5 @@
 package com.example.xyzreader.ui;
 
-import android.app.Activity;
 import android.app.ActivityOptions;
 import android.app.LoaderManager;
 import android.content.BroadcastReceiver;
@@ -11,14 +10,13 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateUtils;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.xyzreader.R;
@@ -32,13 +30,13 @@ import com.example.xyzreader.data.UpdaterService;
  * touched, lead to a {@link ArticleDetailActivity} representing item details. On tablets, the
  * activity presents a grid of items as cards.
  */
-public class ArticleListActivity extends ActionBarActivity implements
+public class ArticleListActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
     private Toolbar mToolbar;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
-    private ImageView mImageView; 
+    private DynamicHeightNetworkImageView mNetworkImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +44,7 @@ public class ArticleListActivity extends ActionBarActivity implements
         setContentView(R.layout.activity_article_list);
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-
+        mNetworkImageView = (DynamicHeightNetworkImageView) findViewById(R.id.thumbnail);
 
         final View toolbarContainerView = findViewById(R.id.toolbar_container);
 
@@ -101,7 +99,7 @@ public class ArticleListActivity extends ActionBarActivity implements
 
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
-        Adapter adapter = new Adapter(cursor, this);
+        Adapter adapter = new Adapter(cursor, mNetworkImageView);
         adapter.setHasStableIds(true);
         mRecyclerView.setAdapter(adapter);
 
@@ -119,11 +117,13 @@ public class ArticleListActivity extends ActionBarActivity implements
 
     private class Adapter extends RecyclerView.Adapter<ViewHolder> {
         private Cursor mCursor;
-        private Activity mActivity;
+       // private Activity mActivity;
+        private DynamicHeightNetworkImageView mNetworkImageView;
 
-        public Adapter(Cursor cursor, Activity activity) {
+        public Adapter(Cursor cursor,  DynamicHeightNetworkImageView networkImageView) {
             mCursor = cursor;
-            mActivity = activity;
+           // mActivity = activity;
+            mNetworkImageView = networkImageView;
         }
 
         @Override
@@ -135,20 +135,18 @@ public class ArticleListActivity extends ActionBarActivity implements
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = getLayoutInflater().inflate(R.layout.list_item_article, parent, false);
-            final com.example.xyzreader.ui.DynamicHeightNetworkImageView dynamicHeightNetworkImageView = (DynamicHeightNetworkImageView) findViewById(R.id.thumbnail);
+           // final com.example.xyzreader.ui.DynamicHeightNetworkImageView dynamicHeightNetworkImageView = (DynamicHeightNetworkImageView) findViewById(R.id.thumbnail);
             final ViewHolder vh = new ViewHolder(view);
-            final ImageView imageView = (ImageView) findViewById(R.id.photo);
+            final View networkImageView =  findViewById(R.id.thumbnail);
+            //final ImageView imageView = (ImageView) findViewById(R.id.photo);
 
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
                         Bundle bundle = ActivityOptions
-                                .makeSceneTransitionAnimation(mActivity)
-                                .makeSceneTransitionAnimation(mActivity, dynamicHeightNetworkImageView, imageView.getTransitionName())
+                                .makeSceneTransitionAnimation(ArticleListActivity.this, view, view.getTransitionName())
                                 .toBundle();
-
-
                         startActivity(new Intent(Intent.ACTION_VIEW,
                                 ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition()))), bundle);
                     }

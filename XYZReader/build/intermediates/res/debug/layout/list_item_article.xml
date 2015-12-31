@@ -8,7 +8,8 @@
     android:layout_marginBottom="4dp"
     android:clickable="true"
     android:focusable="true"
-    android:foreground="?selectableItemBackground">
+    android:foreground="?selectableItemBackground"
+    android:transitionName="@string/picture">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,7 +21,7 @@
             android:id="@+id/thumbnail"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:transitionName="picture"
+            android:transitionName="@string/picture"
             android:background="@color/photo_placeholder" />
 
         <TextView
