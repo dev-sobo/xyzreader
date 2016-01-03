@@ -107,4 +107,4 @@
         android:contentDescription="@string/action_share" />
 
 </com.example.xyzreader.ui.DrawInsetsFrameLayout>
-<!-- From: file:/C:/Users/ian/Downloads/xyzreader/XYZReader/src/main/res/layout/fragment_article_detail.xml -->
+<!-- From: file:/C:/Users/ian/AndroidStudioProjects/xyzreader/XYZReader/src/main/res/layout/fragment_article_detail.xml -->

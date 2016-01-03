@@ -219,12 +219,14 @@ public class ArticleDetailFragment extends Fragment implements
                     .get(mCursor.getString(ArticleLoader.Query.PHOTO_URL), new ImageLoader.ImageListener() {
                         @Override
                         public void onResponse(ImageLoader.ImageContainer imageContainer, boolean b) {
-                            Log.d(TAG, mCursor.getString(ArticleLoader.Query.PHOTO_URL));
+                            if (mCursor != null) {
+                                Log.d(TAG, mCursor.getString(ArticleLoader.Query.PHOTO_URL));
+                            }
                             Bitmap bitmap = imageContainer.getBitmap();
                             if (bitmap != null) {
                                 Palette p = Palette.generate(bitmap, 12);
                                 mMutedColor = p.getDarkMutedColor(0xFF333333);
-                                mPhotoView.setImageBitmap(imageContainer.getBitmap());
+                                mPhotoView.setImageBitmap(bitmap);
                                 mRootView.findViewById(R.id.meta_bar)
                                         .setBackgroundColor(mMutedColor);
                                 updateStatusBar();

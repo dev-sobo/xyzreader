@@ -54,8 +54,8 @@ public class RemoteEndpointUtil {
         return response.body().string();
         //return new String(fetch(url), "UTF-8" );
     }
-
-    /*static byte[] fetch(URL url) throws IOException {
+}
+   /*static byte[] fetch(URL url) throws IOException {
         InputStream in = null;
 
         try {
@@ -76,4 +76,3 @@ public class RemoteEndpointUtil {
             }
         }
     }*/
-}
