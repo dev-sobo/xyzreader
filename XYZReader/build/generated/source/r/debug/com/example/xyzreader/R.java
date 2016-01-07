@@ -2194,10 +2194,10 @@ containing a value of this type.
         public static final int activity_chooser_view_content=0x7f0e003e;
         public static final int alertTitle=0x7f0e0048;
         public static final int always=0x7f0e002c;
-        public static final int article_body=0x7f0e0076;
-        public static final int article_byline=0x7f0e0075;
+        public static final int article_body=0x7f0e0072;
+        public static final int article_byline=0x7f0e0076;
         public static final int article_subtitle=0x7f0e007c;
-        public static final int article_title=0x7f0e0074;
+        public static final int article_title=0x7f0e0075;
         public static final int beginning=0x7f0e002a;
         public static final int bottom=0x7f0e001b;
         public static final int buttonPanel=0x7f0e004e;
@@ -2210,7 +2210,7 @@ containing a value of this type.
         public static final int clip_horizontal=0x7f0e001f;
         public static final int clip_vertical=0x7f0e0020;
         public static final int collapseActionView=0x7f0e002d;
-        public static final int collapsingToolBar=0x7f0e0073;
+        public static final int collapsingToolBar=0x7f0e0074;
         public static final int contentPanel=0x7f0e0049;
         public static final int custom=0x7f0e004d;
         public static final int customPanel=0x7f0e004c;
@@ -2245,7 +2245,7 @@ containing a value of this type.
         public static final int listMode=0x7f0e000b;
         public static final int list_item=0x7f0e0042;
         public static final int media_actions=0x7f0e0080;
-        public static final int meta_bar=0x7f0e0072;
+        public static final int meta_bar=0x7f0e0073;
         public static final int middle=0x7f0e002b;
         public static final int mini=0x7f0e0029;
         public static final int multiply=0x7f0e0036;
