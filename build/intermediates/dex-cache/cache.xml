@@ -2,39 +2,11 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\ian\Downloads\xyzreader\XYZReader\build\intermediates\exploded-aar\com.android.support\design\22.2.0\jars\classes.jar"
+        jar="C:\Users\ian\Downloads\xyzreader\XYZReader\build\intermediates\exploded-aar\com.android.support\support-v13\22.2.0\jars\libs\internal_impl-22.2.0.jar"
         jumboMode="false"
         revision="23.0.2"
-        sha1="fc63b820d54c8a27a3a614bdd93920e0076581c2">
-        <dex dex="C:\Users\ian\Downloads\xyzreader\XYZReader\build\intermediates\pre-dexed\debug\com.android.support-design-22.2.0_68973e9b460de3bec86fdaa351e999d2e785f4ec.jar" />
-    </item>
-    <item
-        jar="C:\Users\ian\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp\okhttp\2.7.0\1477ec5caf8319ab4b51eb43553cd66aa86fdea5\okhttp-2.7.0.jar"
-        jumboMode="false"
-        revision="23.0.2"
-        sha1="1477ec5caf8319ab4b51eb43553cd66aa86fdea5">
-        <dex dex="C:\Users\ian\Downloads\xyzreader\XYZReader\build\intermediates\pre-dexed\debug\okhttp-2.7.0_e3993cbd7e9c1b6fdc1656a035b527a3fc790650.jar" />
-    </item>
-    <item
-        jar="C:\Users\ian\Downloads\xyzreader\XYZReader\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.2"
-        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
-        <dex dex="C:\Users\ian\Downloads\xyzreader\XYZReader\build\intermediates\pre-dexed\debug\com.android.support-support-v4-22.2.0_ac55b7a52d40efa809d81f8ca3c75b278e265bad.jar" />
-    </item>
-    <item
-        jar="C:\Users\ian\.gradle\caches\modules-2\files-2.1\com.squareup.okio\okio\1.6.0\98476622f10715998eacf9240d6b479f12c66143\okio-1.6.0.jar"
-        jumboMode="false"
-        revision="23.0.2"
-        sha1="98476622f10715998eacf9240d6b479f12c66143">
-        <dex dex="C:\Users\ian\Downloads\xyzreader\XYZReader\build\intermediates\pre-dexed\debug\okio-1.6.0_48ff68c13e0641538e74c15c0698dc7f5da41a1a.jar" />
-    </item>
-    <item
-        jar="C:\Users\ian\Downloads\xyzreader\XYZReader\build\intermediates\exploded-aar\com.android.support\cardview-v7\22.2.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.2"
-        sha1="97f7e239e86ef994de894818fdd8a71d2e89d6aa">
-        <dex dex="C:\Users\ian\Downloads\xyzreader\XYZReader\build\intermediates\pre-dexed\debug\com.android.support-cardview-v7-22.2.0_89032c19aa70d7af741b343f362825933890d9f5.jar" />
+        sha1="79a5b6d9fbab3b5fb4c6f86a1ed7a17722fd937b">
+        <dex dex="C:\Users\ian\Downloads\xyzreader\XYZReader\build\intermediates\pre-dexed\debug\internal_impl-22.2.0_f37a8b0c7c7b3fda9a60e1405dcb1100e4441710.jar" />
     </item>
     <item
         jar="C:\Users\ian\Downloads\xyzreader\XYZReader\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.2.0\jars\classes.jar"
@@ -44,25 +16,18 @@
         <dex dex="C:\Users\ian\Downloads\xyzreader\XYZReader\build\intermediates\pre-dexed\debug\com.android.support-appcompat-v7-22.2.0_0ef5caeae784f35c00334a330c3cf59413ee73c0.jar" />
     </item>
     <item
-        jar="C:\Users\ian\Downloads\xyzreader\XYZReader\libs\volley.jar"
+        jar="C:\Users\ian\Downloads\xyzreader\XYZReader\build\intermediates\exploded-aar\com.android.support\palette-v7\22.2.0\jars\classes.jar"
         jumboMode="false"
         revision="23.0.2"
-        sha1="c68094cbd011a3f9dccbfe16e77a2cf43622e277">
-        <dex dex="C:\Users\ian\Downloads\xyzreader\XYZReader\build\intermediates\pre-dexed\debug\volley_5dbfca710089ba56b6badecd4ae9e2472bf1b389.jar" />
+        sha1="060b30a619b8d3ba053e1d7dc08b3fdf0dd81530">
+        <dex dex="C:\Users\ian\Downloads\xyzreader\XYZReader\build\intermediates\pre-dexed\debug\com.android.support-palette-v7-22.2.0_d23d71707a265f4c925df5fb4b9265efef079b58.jar" />
     </item>
     <item
-        jar="C:\Users\ian\Downloads\xyzreader\XYZReader\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\libs\internal_impl-22.2.0.jar"
+        jar="C:\Users\ian\Downloads\xyzreader\XYZReader\build\intermediates\exploded-aar\com.android.support\support-v13\22.2.0\jars\classes.jar"
         jumboMode="false"
         revision="23.0.2"
-        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
-        <dex dex="C:\Users\ian\Downloads\xyzreader\XYZReader\build\intermediates\pre-dexed\debug\internal_impl-22.2.0_074a49209be5572db241c8c970bc064c597a6e45.jar" />
-    </item>
-    <item
-        jar="C:\Users\ian\Downloads\xyzreader\XYZReader\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\22.2.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.2"
-        sha1="5b37cf49773f7f17aca9830efd3053b0cac56728">
-        <dex dex="C:\Users\ian\Downloads\xyzreader\XYZReader\build\intermediates\pre-dexed\debug\com.android.support-recyclerview-v7-22.2.0_7fa2186480d4a80d1cf127e89b43d9da0bf0c43b.jar" />
+        sha1="9aa93835393824b436f366120c9ba8a0260ce75d">
+        <dex dex="C:\Users\ian\Downloads\xyzreader\XYZReader\build\intermediates\pre-dexed\debug\com.android.support-support-v13-22.2.0_053e130d4ea1acdd50011b47becfba8f92f602a0.jar" />
     </item>
     <item
         jar="C:\Users\ian\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.2.0\support-annotations-22.2.0.jar"
@@ -72,25 +37,60 @@
         <dex dex="C:\Users\ian\Downloads\xyzreader\XYZReader\build\intermediates\pre-dexed\debug\support-annotations-22.2.0_eab6e1a44e9c95898bbcb9504ae47fc262e3c6ab.jar" />
     </item>
     <item
-        jar="C:\Users\ian\Downloads\xyzreader\XYZReader\build\intermediates\exploded-aar\com.android.support\palette-v7\22.2.0\jars\classes.jar"
+        jar="C:\Users\ian\Downloads\xyzreader\XYZReader\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\classes.jar"
         jumboMode="false"
         revision="23.0.2"
-        sha1="060b30a619b8d3ba053e1d7dc08b3fdf0dd81530">
-        <dex dex="C:\Users\ian\Downloads\xyzreader\XYZReader\build\intermediates\pre-dexed\debug\com.android.support-palette-v7-22.2.0_d23d71707a265f4c925df5fb4b9265efef079b58.jar" />
+        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
+        <dex dex="C:\Users\ian\Downloads\xyzreader\XYZReader\build\intermediates\pre-dexed\debug\com.android.support-support-v4-22.2.0_ac55b7a52d40efa809d81f8ca3c75b278e265bad.jar" />
     </item>
     <item
-        jar="C:\Users\ian\Downloads\xyzreader\XYZReader\build\intermediates\exploded-aar\com.android.support\support-v13\22.2.0\jars\libs\internal_impl-22.2.0.jar"
+        jar="C:\Users\ian\Downloads\xyzreader\XYZReader\libs\volley.jar"
         jumboMode="false"
         revision="23.0.2"
-        sha1="79a5b6d9fbab3b5fb4c6f86a1ed7a17722fd937b">
-        <dex dex="C:\Users\ian\Downloads\xyzreader\XYZReader\build\intermediates\pre-dexed\debug\internal_impl-22.2.0_f37a8b0c7c7b3fda9a60e1405dcb1100e4441710.jar" />
+        sha1="c68094cbd011a3f9dccbfe16e77a2cf43622e277">
+        <dex dex="C:\Users\ian\Downloads\xyzreader\XYZReader\build\intermediates\pre-dexed\debug\volley_5dbfca710089ba56b6badecd4ae9e2472bf1b389.jar" />
     </item>
     <item
-        jar="C:\Users\ian\Downloads\xyzreader\XYZReader\build\intermediates\exploded-aar\com.android.support\support-v13\22.2.0\jars\classes.jar"
+        jar="C:\Users\ian\Downloads\xyzreader\XYZReader\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\22.2.0\jars\classes.jar"
         jumboMode="false"
         revision="23.0.2"
-        sha1="9aa93835393824b436f366120c9ba8a0260ce75d">
-        <dex dex="C:\Users\ian\Downloads\xyzreader\XYZReader\build\intermediates\pre-dexed\debug\com.android.support-support-v13-22.2.0_053e130d4ea1acdd50011b47becfba8f92f602a0.jar" />
+        sha1="5b37cf49773f7f17aca9830efd3053b0cac56728">
+        <dex dex="C:\Users\ian\Downloads\xyzreader\XYZReader\build\intermediates\pre-dexed\debug\com.android.support-recyclerview-v7-22.2.0_7fa2186480d4a80d1cf127e89b43d9da0bf0c43b.jar" />
+    </item>
+    <item
+        jar="C:\Users\ian\Downloads\xyzreader\XYZReader\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\libs\internal_impl-22.2.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
+        <dex dex="C:\Users\ian\Downloads\xyzreader\XYZReader\build\intermediates\pre-dexed\debug\internal_impl-22.2.0_074a49209be5572db241c8c970bc064c597a6e45.jar" />
+    </item>
+    <item
+        jar="C:\Users\ian\.gradle\caches\modules-2\files-2.1\com.squareup.okio\okio\1.6.0\98476622f10715998eacf9240d6b479f12c66143\okio-1.6.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="98476622f10715998eacf9240d6b479f12c66143">
+        <dex dex="C:\Users\ian\Downloads\xyzreader\XYZReader\build\intermediates\pre-dexed\debug\okio-1.6.0_48ff68c13e0641538e74c15c0698dc7f5da41a1a.jar" />
+    </item>
+    <item
+        jar="C:\Users\ian\Downloads\xyzreader\XYZReader\build\intermediates\exploded-aar\com.android.support\design\22.2.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="fc63b820d54c8a27a3a614bdd93920e0076581c2">
+        <dex dex="C:\Users\ian\Downloads\xyzreader\XYZReader\build\intermediates\pre-dexed\debug\com.android.support-design-22.2.0_68973e9b460de3bec86fdaa351e999d2e785f4ec.jar" />
+    </item>
+    <item
+        jar="C:\Users\ian\Downloads\xyzreader\XYZReader\build\intermediates\exploded-aar\com.android.support\cardview-v7\22.2.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="97f7e239e86ef994de894818fdd8a71d2e89d6aa">
+        <dex dex="C:\Users\ian\Downloads\xyzreader\XYZReader\build\intermediates\pre-dexed\debug\com.android.support-cardview-v7-22.2.0_89032c19aa70d7af741b343f362825933890d9f5.jar" />
+    </item>
+    <item
+        jar="C:\Users\ian\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp\okhttp\2.7.0\1477ec5caf8319ab4b51eb43553cd66aa86fdea5\okhttp-2.7.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="1477ec5caf8319ab4b51eb43553cd66aa86fdea5">
+        <dex dex="C:\Users\ian\Downloads\xyzreader\XYZReader\build\intermediates\pre-dexed\debug\okhttp-2.7.0_e3993cbd7e9c1b6fdc1656a035b527a3fc790650.jar" />
     </item>
 
 </items>

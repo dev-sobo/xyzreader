@@ -32,7 +32,6 @@
             app:expandedTitleTextAppearance="@android:color/transparent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:contentScrim="@color/primary_material_light"
-
             >
 
             <ImageView
@@ -132,8 +131,9 @@
         android:id="@+id/scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-    android:nestedScrollingEnabled="true"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:nestedScrollingEnabled="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:fillViewport="true">
 
 
         <!--<FrameLayout-->
@@ -155,11 +155,11 @@
 
             <!--</FrameLayout>-->
             <com.example.xyzreader.ui.MaxWidthLinearLayout
-                android:id="@+id/photo_container"
+
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
+                android:gravity="bottom"
                 android:maxWidth="@dimen/detail_card_max_width"
                 android:background="#fff"
                 android:elevation="2dp"
@@ -167,10 +167,10 @@
                 <!--android:layout_marginTop="@dimen/detail_card_top_margin"-->
 
 
-                <android.support.design.widget.CoordinatorLayout
+<!--                <android.support.design.widget.CoordinatorLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:elevation="2dp">
+                    android:elevation="2dp">-->
 
 
 
@@ -190,7 +190,9 @@
 
 
 
-            </android.support.design.widget.CoordinatorLayout>
+
+
+            <!--</android.support.design.widget.CoordinatorLayout>-->
 
             </com.example.xyzreader.ui.MaxWidthLinearLayout>
 
