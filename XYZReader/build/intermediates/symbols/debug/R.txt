@@ -573,9 +573,9 @@ int id activity_chooser_view_content 0x7f0e003e
 int id alertTitle 0x7f0e0048
 int id always 0x7f0e002c
 int id article_body 0x7f0e0076
-int id article_byline 0x7f0e0073
+int id article_byline 0x7f0e0074
 int id article_subtitle 0x7f0e007b
-int id article_title 0x7f0e0072
+int id article_title 0x7f0e0073
 int id beginning 0x7f0e002a
 int id bottom 0x7f0e001b
 int id buttonPanel 0x7f0e004e
@@ -632,8 +632,8 @@ int id normal 0x7f0e000c
 int id pager 0x7f0e0067
 int id parallax 0x7f0e0019
 int id parentPanel 0x7f0e0045
-int id photo 0x7f0e0071
-int id photo_container 0x7f0e0075
+int id photo 0x7f0e0072
+int id photo_container 0x7f0e0071
 int id pin 0x7f0e001a
 int id progress_circular 0x7f0e0006
 int id progress_horizontal 0x7f0e0007
@@ -645,7 +645,7 @@ int id screen 0x7f0e0037
 int id scroll 0x7f0e0018
 int id scrollView 0x7f0e004a
 int id scrollable 0x7f0e0034
-int id scrollview 0x7f0e0074
+int id scrollview 0x7f0e0075
 int id search_badge 0x7f0e005c
 int id search_bar 0x7f0e005b
 int id search_button 0x7f0e005d

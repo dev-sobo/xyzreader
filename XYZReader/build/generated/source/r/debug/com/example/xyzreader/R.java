@@ -2195,9 +2195,9 @@ containing a value of this type.
         public static final int alertTitle=0x7f0e0048;
         public static final int always=0x7f0e002c;
         public static final int article_body=0x7f0e0076;
-        public static final int article_byline=0x7f0e0073;
+        public static final int article_byline=0x7f0e0074;
         public static final int article_subtitle=0x7f0e007b;
-        public static final int article_title=0x7f0e0072;
+        public static final int article_title=0x7f0e0073;
         public static final int beginning=0x7f0e002a;
         public static final int bottom=0x7f0e001b;
         public static final int buttonPanel=0x7f0e004e;
@@ -2254,8 +2254,8 @@ containing a value of this type.
         public static final int pager=0x7f0e0067;
         public static final int parallax=0x7f0e0019;
         public static final int parentPanel=0x7f0e0045;
-        public static final int photo=0x7f0e0071;
-        public static final int photo_container=0x7f0e0075;
+        public static final int photo=0x7f0e0072;
+        public static final int photo_container=0x7f0e0071;
         public static final int pin=0x7f0e001a;
         public static final int progress_circular=0x7f0e0006;
         public static final int progress_horizontal=0x7f0e0007;
@@ -2267,7 +2267,7 @@ containing a value of this type.
         public static final int scroll=0x7f0e0018;
         public static final int scrollView=0x7f0e004a;
         public static final int scrollable=0x7f0e0034;
-        public static final int scrollview=0x7f0e0074;
+        public static final int scrollview=0x7f0e0075;
         public static final int search_badge=0x7f0e005c;
         public static final int search_bar=0x7f0e005b;
         public static final int search_button=0x7f0e005d;
