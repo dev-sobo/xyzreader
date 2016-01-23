@@ -78,6 +78,7 @@
                     android:gravity="center_horizontal"
                     />
 
+
                 <TextView
                     android:id="@+id/article_byline"
                     style="?android:attr/textAppearanceSmall"
@@ -144,11 +145,7 @@
                             android:textSize="@dimen/detail_body_text_size"
                             android:lineSpacingMultiplier="@fraction/detail_body_line_spacing_multiplier"
                             android:elevation="2dp"/>
-
-
-
-
-
+                
             </com.example.xyzreader.ui.MaxWidthLinearLayout>
 
 
@@ -158,7 +155,7 @@
 
 
 
-    <ImageButton android:id="@+id/share_fab"
+    <!--<ImageButton android:id="@+id/share_fab"
                  android:stateListAnimator="@anim/fab_state_list_anim"
                  android:background="@drawable/add_fab_background"
                  android:layout_gravity="bottom|end"
@@ -168,6 +165,16 @@
                  android:layout_height="56dp"
                  android:src="@drawable/ic_share"
                  android:elevation="@dimen/fab_elevation"
-                 android:contentDescription="@string/action_share" />
+                 android:contentDescription="@string/action_share" />-->
 
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/fab_elevation"
+        android:id="@+id/share_fab"
+        android:layout_gravity="bottom|right"
+        android:gravity="bottom|right"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/ic_share"/>
 </android.support.design.widget.CoordinatorLayout>

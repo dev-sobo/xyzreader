@@ -8,19 +8,24 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.Loader;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
 import com.example.xyzreader.R;
 import com.example.xyzreader.data.ArticleLoader;
 import com.example.xyzreader.data.ItemsContract;
@@ -39,7 +44,8 @@ public class ArticleListActivity extends AppCompatActivity implements
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
     private DynamicHeightNetworkImageView mNetworkImageView;
-
+    private static final String LOG_TAG = ArticleListActivity.class.getSimpleName();
+    private int finalHeight, finalWidth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +60,7 @@ public class ArticleListActivity extends AppCompatActivity implements
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         getLoaderManager().initLoader(0, null, this);
+
 
 
         if (savedInstanceState == null) {
@@ -146,29 +153,30 @@ public class ArticleListActivity extends AppCompatActivity implements
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            view.setTransitionName(getResources().getString(R.string.picture));
-                            Bundle bundle = ActivityOptions
-                                    .makeSceneTransitionAnimation(ArticleListActivity.this, view, view.getTransitionName())
-                                    .toBundle();
-                            startActivity(new Intent(Intent.ACTION_VIEW,
-                                    ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition()))), bundle);
-                        } else {
-                            startActivity(new Intent(Intent.ACTION_VIEW,
-                                    ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition()))));
-                        }
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        view.setTransitionName(getResources().getString(R.string.picture));
+                        Bundle bundle = ActivityOptions
+                                .makeSceneTransitionAnimation(ArticleListActivity.this, view, view.getTransitionName())
+                                .toBundle();
+                        startActivity(new Intent(Intent.ACTION_VIEW,
+                                ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition()))), bundle);
+                    } else {
+                        startActivity(new Intent(Intent.ACTION_VIEW,
+                                ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition()))));
                     }
+                }
 
             });
             return vh;
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
+        public void onBindViewHolder(final ViewHolder holder, final int position) {
             mCursor.moveToPosition(position);
 
             holder.titleView.setText(mCursor.getString(ArticleLoader.Query.TITLE));
-           // holder.titleView.setTextSize(holder.cardView.getHeight()* 0.02f);
+            holder.titleView.setVisibility(View.INVISIBLE);
+
             holder.subtitleView.setText(
                     DateUtils.getRelativeTimeSpanString(
                             mCursor.getLong(ArticleLoader.Query.PUBLISHED_DATE),
@@ -176,11 +184,66 @@ public class ArticleListActivity extends AppCompatActivity implements
                             DateUtils.FORMAT_ABBREV_ALL).toString()
                             + " by "
                             + mCursor.getString(ArticleLoader.Query.AUTHOR));
+            holder.subtitleView.setVisibility(View.INVISIBLE);
+
             holder.thumbnailView.setImageUrl(
                     mCursor.getString(ArticleLoader.Query.THUMB_URL),
                     ImageLoaderHelper.getInstance(ArticleListActivity.this).getImageLoader());
             holder.thumbnailView.setAspectRatio(mCursor.getFloat(ArticleLoader.Query.ASPECT_RATIO));
+            if (holder.thumbnailView.getDrawable() != null) {
+                Log.d(LOG_TAG, "ThumbnailView imageBitmap1: " + holder.thumbnailView.getDrawable().toString());
+            }
 
+
+            ImageLoaderHelper.getInstance(ArticleListActivity.this).getImageLoader()
+                    .get(mCursor.getString(ArticleLoader.Query.THUMB_URL), new ImageLoader.ImageListener() {
+                        @Override
+                        public void onResponse(ImageLoader.ImageContainer imageContainer, boolean b) {
+                            Bitmap bitmap = imageContainer.getBitmap();
+                            if (bitmap != null) {
+                                /*Palette palette = Palette.generate(bitmap);
+                                Palette.Swatch swatch = palette.getLightMutedSwatch();*/
+                               // holder.thumbnailView.setImageBitmap(bitmap);
+//                                Log.d(LOG_TAG, "ThumbnailView imageBitmap2: " + holder.thumbnailView.getDrawable().toString());
+                                holder.titleView.setVisibility(View.VISIBLE);
+                                holder.subtitleView.setVisibility(View.VISIBLE);
+                                Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
+                                    @Override
+                                    public void onGenerated(Palette palette) {
+                                        Palette.Swatch generatedSwatch = palette.getLightVibrantSwatch();
+                                        if (generatedSwatch != null) {
+                                           // holder.titleView.setTextColor(generatedSwatch.getBodyTextColor());
+                                            int color = ColorUtils.getComplimentColor(generatedSwatch.getTitleTextColor());
+                                           // holder.titleView.setTextColor(color);
+                                            Log.d(LOG_TAG, "TITLE TEXT COLOR: " + generatedSwatch.getBodyTextColor());
+                                        }
+                                        float density = getResources().getDisplayMetrics().scaledDensity;
+                                        Log.d(LOG_TAG, "DEVICE DENSITY: " + density);
+                                        float textHeight = holder.cardView.getHeight() * (.101f / density);
+                                        holder.titleView.setTextSize(textHeight);
+                                        textHeight = holder.cardView.getHeight() * (.08f / density);
+                                        holder.subtitleView.setTextSize(textHeight);
+                                    }
+                                });
+
+                                    //int colorInteger = swatch.getTitleTextColor();
+//                                    int colorInteger = swatch.getTitleTextColor();
+                                         //   holder.titleView.setTextColor(colorInteger);
+                                  //  Log.d(LOG_TAG, "COLOR INT: " + colorInteger);
+
+                                //swatch.getTitleTextColor();
+                               /* int colorInteger = palette.getVibrantColor(R.color.ltgray);
+                                holder.titleView.setTextColor((colorInteger));
+                                Log.d(LOG_TAG, "BITMAP: " + bitmap.toString());
+                                Log.d(LOG_TAG, "COLOR INT: " + colorInteger);*/
+                            }
+                        }
+
+                        @Override
+                        public void onErrorResponse(VolleyError volleyError) {
+                            volleyError.printStackTrace();
+                        }
+                    });
         }
 
         @Override

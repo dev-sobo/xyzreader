@@ -25,5 +25,5 @@
     <color name="ltgray">#ffe0e0e0</color>
     <color name="primary_material_light">#26c6da</color>
     <color name="primary_dark_material_light">#2962ff</color>
-    <color name="accent_material_light">#c1f44336</color>
+    <color name="accent_material_light">#c1ff6e36</color>
 </resources>
