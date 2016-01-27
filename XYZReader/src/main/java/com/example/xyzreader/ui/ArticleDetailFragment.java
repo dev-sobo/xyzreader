@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ShareCompat;
 import android.support.v7.graphics.Palette;
 import android.text.Html;
@@ -63,7 +64,8 @@ public class ArticleDetailFragment extends Fragment implements
     private int mScrollY;
     private boolean mIsCard = false;
     private int mStatusBarFullOpacityBottom;
-
+    private FloatingActionButton mFab;
+    private AppBarLayout.OnOffsetChangedListener mListener;
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -80,8 +82,28 @@ public class ArticleDetailFragment extends Fragment implements
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        mFab.show();
+        if (mListener != null) {
+
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        /*if (mListener != null) {
+            mAppBarLayout.removeOnOffsetChangedListener(mListener);
+        }*/
+        mFab.hide();
+        Log.d(LOG_TAG, "FRAGMENT PAUSED");
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        mFab.hide();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Slide slide = new Slide(Gravity.BOTTOM);
             slide.addTarget(R.id.textContainer);
@@ -106,7 +128,7 @@ public class ArticleDetailFragment extends Fragment implements
         mStatusBarFullOpacityBottom = getResources().getDimensionPixelSize(
                 R.dimen.detail_card_top_margin);
         setHasOptionsMenu(true);
-
+        //mFab.show();
 
     }
 
@@ -123,6 +145,7 @@ public class ArticleDetailFragment extends Fragment implements
         // fragments because their mIndex is -1 (haven't been added to the activity yet). Thus,
         // we do this in onActivityCreated.
         getLoaderManager().initLoader(0, null, this);
+  //      mFab.hide();
     }
 
     @Override
@@ -140,7 +163,9 @@ public class ArticleDetailFragment extends Fragment implements
         });*/
 
         mScrollView = (ObservableScrollView) mRootView.findViewById(R.id.scrollview);
-        mScrollView.setCallbacks(new ObservableScrollView.Callbacks() {
+
+
+        /*mScrollView.setCallbacks(new ObservableScrollView.Callbacks() {
             @Override
             public void onScrollChanged() {
                 mScrollY = mScrollView.getScrollY();
@@ -149,7 +174,7 @@ public class ArticleDetailFragment extends Fragment implements
                 updateStatusBar();
             }
         });
-
+*/
        //mCollapsingToolbarLayout = (CollapsingToolbarLayout) mRootView.findViewById(R.id.collapsingToolBar);
 
 
@@ -157,21 +182,28 @@ public class ArticleDetailFragment extends Fragment implements
 
         mPhotoView = (ImageView) mRootView.findViewById(R.id.photo);
         mPhotoContainerView = mRootView.findViewById(R.id.photo_container);
+        mFab = (FloatingActionButton) mRootView.findViewById(R.id.share_fab);
+
 
         mStatusBarColorDrawable = new ColorDrawable(0);
-
-        mRootView.findViewById(R.id.share_fab).setOnClickListener(new View.OnClickListener() {
+        mFab.hide();
+        mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(Intent.createChooser(ShareCompat.IntentBuilder.from(getActivity())
                         .setType("text/plain")
                         .setText("Some sample text")
                         .getIntent(), getString(R.string.action_share)));
+                /*if (mListener != null) {
+                    mAppBarLayout.removeOnOffsetChangedListener(mListener);
+                }*/
+
             }
         });
 
         bindViews();
         updateStatusBar();
+       // mFab.show();
         return mRootView;
     }
 
@@ -219,7 +251,7 @@ public class ArticleDetailFragment extends Fragment implements
                                 mMutedColor = p.getDarkVibrantColor(0xFF333333);
                                 List<Palette.Swatch> swatch = p.getSwatches();
 
-                                
+
                                 updateStatusBar();
                                 mPhotoView.setImageBitmap(imageContainer.getBitmap());
 
@@ -231,7 +263,7 @@ public class ArticleDetailFragment extends Fragment implements
                                 mCollapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.ToolbarTitleExpanded);
                                 mCollapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.ToolbarTitleCollapsed);
                                 mAppBarLayout = (AppBarLayout) mRootView.findViewById(R.id.meta_bar);
-                                mAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+                                mAppBarLayout.addOnOffsetChangedListener(mListener = new AppBarLayout.OnOffsetChangedListener() {
                                     boolean isShowing = false;
                                     int scrollRange = -1;
 
@@ -242,14 +274,19 @@ public class ArticleDetailFragment extends Fragment implements
                                         }
                                         if (scrollRange + i == 0) {
                                             mCollapsingToolbarLayout.setTitle(mCursor.getString(ArticleLoader.Query.TITLE));
+                                          //  mFab.hide();
                                             isShowing = true;
+
                                         } else if (isShowing) {
                                             mCollapsingToolbarLayout.setTitle(null);
+                                           // mFab.show();
                                             isShowing = false;
+
                                         }
                                     Log.d(LOG_TAG, "Scroll Range: " + String.valueOf(scrollRange));
                                     Log.d(LOG_TAG, "Vertical Offset: " + String.valueOf(i));}
                                 });
+
                                /* mRootView.findViewById(R.id.meta_bar)
                                         .setBackgroundColor(mMutedColor);*/
 
