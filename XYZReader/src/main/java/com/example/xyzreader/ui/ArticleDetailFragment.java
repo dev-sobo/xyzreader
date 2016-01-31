@@ -13,7 +13,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ShareCompat;
 import android.support.v7.graphics.Palette;
 import android.text.Html;
@@ -44,9 +46,9 @@ import java.util.List;
 public class ArticleDetailFragment extends Fragment implements
         LoaderManager.LoaderCallbacks<Cursor> {
     private static final String LOG_TAG = "ArticleDetailFragment";
-
     public static final String ARG_ITEM_ID = "item_id";
     private static final float PARALLAX_FACTOR = 1.25f;
+    private static final int CHOOSER_CONSTANT = 100;
 
     private Cursor mCursor;
     private long mItemId;
@@ -59,6 +61,7 @@ public class ArticleDetailFragment extends Fragment implements
     private AppBarLayout mAppBarLayout;
 
     private int mTopInset;
+    private CoordinatorLayout mCoordinatorLayout;
     private View mPhotoContainerView;
     private ImageView mPhotoView;
     private int mScrollY;
@@ -66,6 +69,7 @@ public class ArticleDetailFragment extends Fragment implements
     private int mStatusBarFullOpacityBottom;
     private FloatingActionButton mFab;
     private AppBarLayout.OnOffsetChangedListener mListener;
+
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -183,6 +187,7 @@ public class ArticleDetailFragment extends Fragment implements
         mPhotoView = (ImageView) mRootView.findViewById(R.id.photo);
         mPhotoContainerView = mRootView.findViewById(R.id.photo_container);
         mFab = (FloatingActionButton) mRootView.findViewById(R.id.share_fab);
+        mCoordinatorLayout = (CoordinatorLayout) mRootView.findViewById(R.id.textContainer);
 
 
         mStatusBarColorDrawable = new ColorDrawable(0);
@@ -190,10 +195,11 @@ public class ArticleDetailFragment extends Fragment implements
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(Intent.createChooser(ShareCompat.IntentBuilder.from(getActivity())
+
+                startActivityForResult(Intent.createChooser(ShareCompat.IntentBuilder.from(getActivity())
                         .setType("text/plain")
                         .setText("Some sample text")
-                        .getIntent(), getString(R.string.action_share)));
+                        .getIntent(), getString(R.string.action_share)), CHOOSER_CONSTANT);
                 /*if (mListener != null) {
                     mAppBarLayout.removeOnOffsetChangedListener(mListener);
                 }*/
@@ -203,11 +209,20 @@ public class ArticleDetailFragment extends Fragment implements
 
         bindViews();
         updateStatusBar();
-       // mFab.show();
+
         return mRootView;
     }
 
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CHOOSER_CONSTANT) {
+            Snackbar.make(mCoordinatorLayout, "Article Shared.", Snackbar.LENGTH_SHORT).show();
+            mFab.show();
+        }
+
+    }
 
     private void bindViews() {
         if (mRootView == null) {
@@ -259,6 +274,7 @@ public class ArticleDetailFragment extends Fragment implements
                                         mRootView.findViewById(R.id.collapsingToolBar);
 
                                 mCollapsingToolbarLayout.setContentScrimColor(mMutedColor);
+                                mFab.setRippleColor(mMutedColor);
                                 //mCollapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.MainTitleText);
                                 mCollapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.ToolbarTitleExpanded);
                                 mCollapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.ToolbarTitleCollapsed);
@@ -284,7 +300,9 @@ public class ArticleDetailFragment extends Fragment implements
 
                                         }
                                     Log.d(LOG_TAG, "Scroll Range: " + String.valueOf(scrollRange));
-                                    Log.d(LOG_TAG, "Vertical Offset: " + String.valueOf(i));}
+                                    Log.d(LOG_TAG, "Vertical Offset: " + String.valueOf(i));
+                                        mFab.show();
+                                    }
                                 });
 
                                /* mRootView.findViewById(R.id.meta_bar)

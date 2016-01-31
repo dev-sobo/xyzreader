@@ -69,7 +69,10 @@ public class ArticleDetailActivity extends AppCompatActivity
                 mUpButton.animate()
                         .alpha((state == ViewPager.SCROLL_STATE_IDLE) ? 1f : 0f)
                         .setDuration(300);
+                switch (state) {
+                    case ViewPager.SCROLL_STATE_DRAGGING:
 
+                }
 
             }
 
