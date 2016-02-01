@@ -14,9 +14,7 @@ import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.ShareCompat;
 import android.support.v7.graphics.Palette;
 import android.text.Html;
 import android.text.format.DateUtils;
@@ -67,7 +65,7 @@ public class ArticleDetailFragment extends Fragment implements
     private int mScrollY;
     private boolean mIsCard = false;
     private int mStatusBarFullOpacityBottom;
-    private FloatingActionButton mFab;
+  //  private FloatingActionButton mFab;
     private AppBarLayout.OnOffsetChangedListener mListener;
 
     /**
@@ -88,7 +86,7 @@ public class ArticleDetailFragment extends Fragment implements
     @Override
     public void onResume() {
         super.onResume();
-        mFab.show();
+   //     mFab.show();
         if (mListener != null) {
 
         }
@@ -100,7 +98,7 @@ public class ArticleDetailFragment extends Fragment implements
         /*if (mListener != null) {
             mAppBarLayout.removeOnOffsetChangedListener(mListener);
         }*/
-        mFab.hide();
+       // mFab.hide();
         Log.d(LOG_TAG, "FRAGMENT PAUSED");
     }
 
@@ -186,12 +184,13 @@ public class ArticleDetailFragment extends Fragment implements
 
         mPhotoView = (ImageView) mRootView.findViewById(R.id.photo);
         mPhotoContainerView = mRootView.findViewById(R.id.photo_container);
-        mFab = (FloatingActionButton) mRootView.findViewById(R.id.share_fab);
+       // mFab = (FloatingActionButton) mRootView.findViewById(R.id.share_fab);
         mCoordinatorLayout = (CoordinatorLayout) mRootView.findViewById(R.id.textContainer);
 
 
         mStatusBarColorDrawable = new ColorDrawable(0);
-        mFab.hide();
+        //mFab.hide();
+/*
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -200,12 +199,15 @@ public class ArticleDetailFragment extends Fragment implements
                         .setType("text/plain")
                         .setText("Some sample text")
                         .getIntent(), getString(R.string.action_share)), CHOOSER_CONSTANT);
-                /*if (mListener != null) {
+                */
+/*if (mListener != null) {
                     mAppBarLayout.removeOnOffsetChangedListener(mListener);
-                }*/
+                }*//*
+
 
             }
         });
+*/
 
         bindViews();
         updateStatusBar();
@@ -219,7 +221,7 @@ public class ArticleDetailFragment extends Fragment implements
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CHOOSER_CONSTANT) {
             Snackbar.make(mCoordinatorLayout, "Article Shared.", Snackbar.LENGTH_SHORT).show();
-            mFab.show();
+           // mFab.show();
         }
 
     }
@@ -274,7 +276,7 @@ public class ArticleDetailFragment extends Fragment implements
                                         mRootView.findViewById(R.id.collapsingToolBar);
 
                                 mCollapsingToolbarLayout.setContentScrimColor(mMutedColor);
-                                mFab.setRippleColor(mMutedColor);
+                                //mFab.setRippleColor(mMutedColor);
                                 //mCollapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.MainTitleText);
                                 mCollapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.ToolbarTitleExpanded);
                                 mCollapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.ToolbarTitleCollapsed);
@@ -282,6 +284,7 @@ public class ArticleDetailFragment extends Fragment implements
                                 mAppBarLayout.addOnOffsetChangedListener(mListener = new AppBarLayout.OnOffsetChangedListener() {
                                     boolean isShowing = false;
                                     int scrollRange = -1;
+                                 //  private FloatingActionButton floatingActionButton = getActivityCast().getFab();
 
                                     @Override
                                     public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
@@ -292,16 +295,22 @@ public class ArticleDetailFragment extends Fragment implements
                                             mCollapsingToolbarLayout.setTitle(mCursor.getString(ArticleLoader.Query.TITLE));
                                           //  mFab.hide();
                                             isShowing = true;
+                                          /*  if (floatingActionButton != null) {
+                                                floatingActionButton.show();
+                                            }*/
+
 
                                         } else if (isShowing) {
                                             mCollapsingToolbarLayout.setTitle(null);
                                            // mFab.show();
                                             isShowing = false;
-
+                                            /*if (floatingActionButton != null) {
+                                                floatingActionButton.hide();
+                                            }*/
                                         }
                                     Log.d(LOG_TAG, "Scroll Range: " + String.valueOf(scrollRange));
                                     Log.d(LOG_TAG, "Vertical Offset: " + String.valueOf(i));
-                                        mFab.show();
+                                      //  mFab.show();
                                     }
                                 });
 

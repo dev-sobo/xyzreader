@@ -3,6 +3,7 @@ package com.example.xyzreader.ui;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.LoaderManager;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
@@ -10,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v13.app.FragmentStatePagerAdapter;
+import android.support.v4.app.ShareCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -40,6 +42,7 @@ public class ArticleDetailActivity extends AppCompatActivity
     private View mUpButtonContainer;
     private View mUpButton;
     private FloatingActionButton mFab;
+    private static final int CHOOSER_CONSTANT = 100;
     private static final String LOG_TAG = ArticleDetailActivity.class.getSimpleName();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +57,7 @@ public class ArticleDetailActivity extends AppCompatActivity
 
         getLoaderManager().initLoader(0, null, this);
 
-
+        mFab = (FloatingActionButton) findViewById(R.id.share_fab);
         mPagerAdapter = new MyPagerAdapter(getFragmentManager());
         mPager = (ViewPager) findViewById(R.id.pager);
         mPager.setAdapter(mPagerAdapter);
@@ -62,7 +65,27 @@ public class ArticleDetailActivity extends AppCompatActivity
                 .applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getResources().getDisplayMetrics()));
         mPager.setPageMarginDrawable(new ColorDrawable(0x22000000));
 //        mFab.hide();
+        mFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivityForResult(Intent.createChooser(ShareCompat.IntentBuilder.from(ArticleDetailActivity.this)
+                        .setType("text/plain")
+                        .setText("Some sample text")
+                        .getIntent(), getString(R.string.action_share)), CHOOSER_CONSTANT);
+                /*if (mListener != null) {
+                    mAppBarLayout.removeOnOffsetChangedListener(mListener);
+                }*/
+
+            }
+        });
+
         mPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+            }
+
             @Override
             public void onPageScrollStateChanged(int state) {
                 super.onPageScrollStateChanged(state);
@@ -71,9 +94,22 @@ public class ArticleDetailActivity extends AppCompatActivity
                         .setDuration(300);
                 switch (state) {
                     case ViewPager.SCROLL_STATE_DRAGGING:
-
+                        mFab.hide();
+                        Log.v(LOG_TAG, "1_ HIDING FAB BUTTON DRAGGING");
+                        break;
+                    case ViewPager.SCROLL_STATE_SETTLING:
+                        mFab.show();
+                        Log.v(LOG_TAG, "2_ SHOWING FAB BUTTON FOR SETTLING SCROLL STATE");
+                        break;
+                    case ViewPager.SCROLL_STATE_IDLE:
+                        mFab.show();
+                        Log.v(LOG_TAG, "3_ SHOWING FAB BUTTON FOR IDLING SCROLL STATE");
+                        break;
+                    default:
+                        mFab.show();
+                        Log.v(LOG_TAG, "4_ SHOWING_FAB BUTTON FOR DEFAULT");
+                        break;
                 }
-
             }
 
             @Override
@@ -83,7 +119,8 @@ public class ArticleDetailActivity extends AppCompatActivity
                 }
                 mSelectedItemId = mCursor.getLong(ArticleLoader.Query._ID);
                 updateUpButtonPosition();
-                Log.d(LOG_TAG, "ON PAGE SELECTED");
+                Log.d(LOG_TAG, "5_ ON PAGE SELECTED");
+                mFab.show();
             }
         });
 
@@ -144,10 +181,13 @@ public class ArticleDetailActivity extends AppCompatActivity
         }
     }
 
+
+
     @Override
     public void onLoaderReset(Loader<Cursor> cursorLoader) {
         mCursor = null;
         mPagerAdapter.notifyDataSetChanged();
+
     }
 
     public void onUpButtonFloorChanged(long itemId, ArticleDetailFragment fragment) {
@@ -160,8 +200,16 @@ public class ArticleDetailActivity extends AppCompatActivity
     private void updateUpButtonPosition() {
         int upButtonNormalBottom = mTopInset + mUpButton.getHeight();
         mUpButton.setTranslationY(Math.min(mSelectedItemUpButtonFloor - upButtonNormalBottom, 0));
+
     }
 
+    /*public FloatingActionButton getFab() {
+        if (mFab != null){
+            return mFab;
+        } else {
+            return null;
+        }
+    }*/
     private class MyPagerAdapter extends FragmentStatePagerAdapter {
         public MyPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -188,4 +236,6 @@ public class ArticleDetailActivity extends AppCompatActivity
             return (mCursor != null) ? mCursor.getCount() : 0;
         }
     }
+
+
 }
