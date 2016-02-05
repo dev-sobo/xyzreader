@@ -57,6 +57,7 @@ public class ArticleDetailFragment extends Fragment implements
     private ColorDrawable mStatusBarColorDrawable;
     //private CollapsingToolbarLayout mCollapsingToolbarLayout;
     private AppBarLayout mAppBarLayout;
+    private CollapsingToolbarLayout mCollapsingToolbarLayout;
 
     private int mTopInset;
     private CoordinatorLayout mCoordinatorLayout;
@@ -65,6 +66,7 @@ public class ArticleDetailFragment extends Fragment implements
     private int mScrollY;
     private boolean mIsCard = false;
     private int mStatusBarFullOpacityBottom;
+    private int mOffset;
   //  private FloatingActionButton mFab;
     private AppBarLayout.OnOffsetChangedListener mListener;
 
@@ -81,15 +83,6 @@ public class ArticleDetailFragment extends Fragment implements
         ArticleDetailFragment fragment = new ArticleDetailFragment();
         fragment.setArguments(arguments);
         return fragment;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-   //     mFab.show();
-        if (mListener != null) {
-
-        }
     }
 
     @Override
@@ -155,60 +148,26 @@ public class ArticleDetailFragment extends Fragment implements
             Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.fragment_article_detail, container, false);
 
-/*        mDrawInsetsFrameLayout = (DrawInsetsFrameLayout)
-                mRootView.findViewById(R.id.draw_insets_frame_layout);
-        mDrawInsetsFrameLayout.setOnInsetsCallback(new DrawInsetsFrameLayout.OnInsetsCallback() {
-            @Override
-            public void onInsetsChanged(Rect insets) {
-                mTopInset = insets.top;
-            }
-        });*/
-
         mScrollView = (ObservableScrollView) mRootView.findViewById(R.id.scrollview);
-
-
-        /*mScrollView.setCallbacks(new ObservableScrollView.Callbacks() {
-            @Override
-            public void onScrollChanged() {
-                mScrollY = mScrollView.getScrollY();
-                getActivityCast().onUpButtonFloorChanged(mItemId, ArticleDetailFragment.this);
-                mPhotoContainerView.setTranslationY((int) (mScrollY - mScrollY / PARALLAX_FACTOR));
-                updateStatusBar();
-            }
-        });
-*/
-       //mCollapsingToolbarLayout = (CollapsingToolbarLayout) mRootView.findViewById(R.id.collapsingToolBar);
-
-
-
-
         mPhotoView = (ImageView) mRootView.findViewById(R.id.photo);
         mPhotoContainerView = mRootView.findViewById(R.id.photo_container);
        // mFab = (FloatingActionButton) mRootView.findViewById(R.id.share_fab);
         mCoordinatorLayout = (CoordinatorLayout) mRootView.findViewById(R.id.textContainer);
+        mAppBarLayout = (AppBarLayout) mRootView.findViewById(R.id.meta_bar);
+          mCollapsingToolbarLayout = (CollapsingToolbarLayout)
+                mRootView.findViewById(R.id.collapsingToolBar);
 
+
+            mScrollView.setCallbacks(new ObservableScrollView.Callbacks() {
+                @Override
+                public void onScrollChanged() {
+                    mScrollY = mScrollView.getScrollY() + mAppBarLayout.getScrollY() + mCollapsingToolbarLayout.getScrollY();
+                    getActivityCast().onUpButtonFloorChanged(mItemId, ArticleDetailFragment.this);
+                    mPhotoContainerView.setTranslationY((int) (mScrollY - mScrollY / PARALLAX_FACTOR));
+                }
+            });
 
         mStatusBarColorDrawable = new ColorDrawable(0);
-        //mFab.hide();
-/*
-        mFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                startActivityForResult(Intent.createChooser(ShareCompat.IntentBuilder.from(getActivity())
-                        .setType("text/plain")
-                        .setText("Some sample text")
-                        .getIntent(), getString(R.string.action_share)), CHOOSER_CONSTANT);
-                */
-/*if (mListener != null) {
-                    mAppBarLayout.removeOnOffsetChangedListener(mListener);
-                }*//*
-
-
-            }
-        });
-*/
-
         bindViews();
         updateStatusBar();
 
@@ -223,7 +182,6 @@ public class ArticleDetailFragment extends Fragment implements
             Snackbar.make(mCoordinatorLayout, "Article Shared.", Snackbar.LENGTH_SHORT).show();
            // mFab.show();
         }
-
     }
 
     private void bindViews() {
@@ -272,15 +230,14 @@ public class ArticleDetailFragment extends Fragment implements
                                 updateStatusBar();
                                 mPhotoView.setImageBitmap(imageContainer.getBitmap());
 
-                                final CollapsingToolbarLayout mCollapsingToolbarLayout = (CollapsingToolbarLayout)
-                                        mRootView.findViewById(R.id.collapsingToolBar);
 
                                 mCollapsingToolbarLayout.setContentScrimColor(mMutedColor);
+
                                 //mFab.setRippleColor(mMutedColor);
                                 //mCollapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.MainTitleText);
                                 mCollapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.ToolbarTitleExpanded);
                                 mCollapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.ToolbarTitleCollapsed);
-                                mAppBarLayout = (AppBarLayout) mRootView.findViewById(R.id.meta_bar);
+
                                 mAppBarLayout.addOnOffsetChangedListener(mListener = new AppBarLayout.OnOffsetChangedListener() {
                                     boolean isShowing = false;
                                     int scrollRange = -1;
@@ -288,28 +245,29 @@ public class ArticleDetailFragment extends Fragment implements
 
                                     @Override
                                     public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
+                                        mOffset = i;
                                         if (scrollRange == -1) {
                                             scrollRange = appBarLayout.getTotalScrollRange();
+                                            //Log.v(LOG_TAG, "SCROLL_RANGE: " +  scrollRange);
                                         }
                                         if (scrollRange + i == 0) {
+                                            // Reached the bottom of the AppBarLayout's view.
                                             mCollapsingToolbarLayout.setTitle(mCursor.getString(ArticleLoader.Query.TITLE));
-                                          //  mFab.hide();
+
+
                                             isShowing = true;
-                                          /*  if (floatingActionButton != null) {
-                                                floatingActionButton.show();
-                                            }*/
 
 
                                         } else if (isShowing) {
                                             mCollapsingToolbarLayout.setTitle(null);
-                                           // mFab.show();
+
                                             isShowing = false;
-                                            /*if (floatingActionButton != null) {
-                                                floatingActionButton.hide();
-                                            }*/
                                         }
-                                    Log.d(LOG_TAG, "Scroll Range: " + String.valueOf(scrollRange));
-                                    Log.d(LOG_TAG, "Vertical Offset: " + String.valueOf(i));
+                                        //mScrollY = i;
+                                        getActivityCast().onUpButtonFloorChanged(mItemId, ArticleDetailFragment.this);
+                                        //mPhotoContainerView.setTranslationY((int) (mScrollY - mScrollY / PARALLAX_FACTOR));
+                                   /* Log.d(LOG_TAG, "Scroll Range: " + String.valueOf(scrollRange));
+                                    Log.d(LOG_TAG, "Vertical Offset: " + String.valueOf(i));*/
                                       //  mFab.show();
                                     }
                                 });
@@ -334,7 +292,16 @@ public class ArticleDetailFragment extends Fragment implements
             bodyView.setText("N/A");
         }
     }
-
+    public int getUpButtonFloor() {
+        if (mPhotoContainerView == null || mPhotoView.getHeight() == 0) {
+            return Integer.MAX_VALUE;
+        }
+        if (mIsCard) {
+            return (int) mPhotoContainerView.getTranslationY() + mPhotoView.getHeight() - mScrollY;
+        } else {
+            return  (mAppBarLayout.getHeight() + (mOffset - mScrollY));
+        }
+    }
     private void updateStatusBar() {
         int color = 0;
         if (mPhotoView != null && mTopInset != 0 && mScrollY > 0) {
@@ -399,14 +366,5 @@ public class ArticleDetailFragment extends Fragment implements
         bindViews();
     }
 
-    public int getUpButtonFloor() {
-        if (mPhotoContainerView == null || mPhotoView.getHeight() == 0) {
-            return Integer.MAX_VALUE;
-        }
 
-        // account for parallax
-        return mIsCard
-                ? (int) mPhotoContainerView.getTranslationY() + mPhotoView.getHeight() - mScrollY
-                : mPhotoView.getHeight() - mScrollY;
-    }
 }

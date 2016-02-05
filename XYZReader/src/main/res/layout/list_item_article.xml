@@ -8,7 +8,8 @@
     android:clickable="true"
     android:focusable="true"
     android:foreground="?selectableItemBackground"
-    android:id="@+id/cardView">
+    android:id="@+id/cardView"
+    android:elevation="2dp">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -64,7 +65,7 @@
             android:ellipsize="none"
             android:layout_gravity="bottom|end"
             android:shadowColor="#000000"
-            android:shadowRadius="6"
+            android:shadowRadius="10"
             android:shadowDx="1.0"
             android:shadowDy="-.75"
             />

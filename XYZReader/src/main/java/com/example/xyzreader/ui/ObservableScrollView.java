@@ -17,16 +17,16 @@
 package com.example.xyzreader.ui;
 
 import android.content.Context;
-import android.os.Parcelable;
+import android.support.v4.widget.NestedScrollView;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.widget.ScrollView;
 
 /**
  * A custom ScrollView that can accept a scroll listener.
  */
-public class ObservableScrollView extends ScrollView {
+public class ObservableScrollView extends NestedScrollView {
     private Callbacks mCallbacks;
+    private static final String LOG_TAG = ObservableScrollView.class.getSimpleName();
+
 
     public ObservableScrollView(Context context, AttributeSet attrs) {
         super(context, attrs);

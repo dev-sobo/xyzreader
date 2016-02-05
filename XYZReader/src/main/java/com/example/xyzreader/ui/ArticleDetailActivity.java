@@ -48,11 +48,11 @@ public class ArticleDetailActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+       /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().getDecorView().setSystemUiVisibility(
                     View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
                             View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
-        }
+        }*/
         setContentView(R.layout.activity_article_detail);
 
         getLoaderManager().initLoader(0, null, this);
@@ -80,7 +80,7 @@ public class ArticleDetailActivity extends AppCompatActivity
             }
         });
 
-        mPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+        mPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels);
@@ -110,6 +110,7 @@ public class ArticleDetailActivity extends AppCompatActivity
                         Log.v(LOG_TAG, "4_ SHOWING_FAB BUTTON FOR DEFAULT");
                         break;
                 }
+
             }
 
             @Override
@@ -156,6 +157,12 @@ public class ArticleDetailActivity extends AppCompatActivity
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        mPager.clearOnPageChangeListeners();
+    }
+
+    @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         return ArticleLoader.newAllArticlesInstance(this);
     }
@@ -193,14 +200,20 @@ public class ArticleDetailActivity extends AppCompatActivity
     public void onUpButtonFloorChanged(long itemId, ArticleDetailFragment fragment) {
         if (itemId == mSelectedItemId) {
             mSelectedItemUpButtonFloor = fragment.getUpButtonFloor();
+
             updateUpButtonPosition();
         }
     }
 
     private void updateUpButtonPosition() {
-        int upButtonNormalBottom = mTopInset + mUpButton.getHeight();
-        mUpButton.setTranslationY(Math.min(mSelectedItemUpButtonFloor - upButtonNormalBottom, 0));
-
+        if (mSelectedItemUpButtonFloor == Integer.MAX_VALUE) {
+            Log.e(LOG_TAG, "upbutton is incoorect");
+        }
+        int upButtonNormalBottom =  mTopInset + mUpButton.getHeight();
+        mUpButton.setTranslationY(Math.min((mSelectedItemUpButtonFloor - upButtonNormalBottom), 0));
+        Log.i(LOG_TAG, "upbutton translationY: " + mUpButton.getTranslationY() + '\n'
+                + "upbuttonnormalbottom: " + upButtonNormalBottom);
+       // int upButtonBottomBound =
     }
 
     /*public FloatingActionButton getFab() {
@@ -222,6 +235,7 @@ public class ArticleDetailActivity extends AppCompatActivity
             if (fragment != null) {
                 mSelectedItemUpButtonFloor = fragment.getUpButtonFloor();
                 updateUpButtonPosition();
+                Log.i(LOG_TAG, "mSelectedItemUpButtonFloor: " + mSelectedItemUpButtonFloor);
             }
         }
 
@@ -236,6 +250,5 @@ public class ArticleDetailActivity extends AppCompatActivity
             return (mCursor != null) ? mCursor.getCount() : 0;
         }
     }
-
 
 }
